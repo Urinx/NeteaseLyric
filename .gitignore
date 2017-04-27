@@ -87,3 +87,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+res/STHeiti_Light.ttc
