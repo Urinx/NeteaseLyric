@@ -7,7 +7,7 @@ NeteaseLyric [![star this repo](http://github-svg-buttons.herokuapp.com/star.svg
 
 <div align=center>
 <img src="res/lyric_0.png" width="280" height="443"/> <img src="res/lyric_1.png" width="280" height="213"/> <img src="res/lyric_2.png" width="280" height="443"/>
-<div>
+</div>
 
 ## 使用说明
 
