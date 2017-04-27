@@ -5,7 +5,9 @@ NeteaseLyric [![star this repo](http://github-svg-buttons.herokuapp.com/star.svg
 
 一开始，[@lijiarui](https://github.com/lijiarui) 找了个生成网易云音乐歌词图片的脚本 [songzhi/Lrc2Img](https://github.com/songzhi/Lrc2Img) ，然而生成的歌词图片太丑，所以做了一些修改，加了一些其他的功能，使其贴近原版客户端的歌词分享图片，效果如下：
 
-<img src="res/lyric_0.png" width="320" height="506"/> <img src="res/lyric_1.png" width="320" height="244"/> <img src="res/lyric_2.png" width="320" height="506"/>
+<div align=center>
+<img src="res/lyric_0.png" width="280" height="443"/> <img src="res/lyric_1.png" width="280" height="213"/> <img src="res/lyric_2.png" width="280" height="443"/>
+<div>
 
 ## 使用说明
 
