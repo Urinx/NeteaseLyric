@@ -236,16 +236,21 @@ class Img():
 
         padding = self.padding
         w = self.share_img_width
-        h = w + padding + lyric_h + self.song_name_space + \
-            self.font_size + self.banner_space + self.netease_banner_size + padding
-
+        
         album_img = None
         if img_url.startswith('http'):
             raw_img = requests.get(img_url)
             album_img = Image.open(BytesIO(raw_img.content))
         else:
             album_img = Image.open(img_url)
-        resized_album = album_img.resize((w, w), resample=3)
+        
+        iw, ih = album_img.size
+        album_h = ih *  w // iw
+
+        h = album_h + padding + lyric_h + self.song_name_space + \
+            self.font_size + self.banner_space + self.netease_banner_size + padding
+
+        resized_album = album_img.resize((w, album_h), resample=3)
         icon = Image.open(self.netease_icon).resize((self.icon_width, self.icon_width), resample=3)
 
         out_img = Image.new(mode='RGB', size=(w, h), color=(255, 255, 255))
@@ -255,10 +260,10 @@ class Img():
         out_img.paste(resized_album, (0, 0))
         
         # 添加文字
-        draw.text((padding, w + padding), lrc, font=lyric_font, fill=self.text_color, spacing=self.line_space)
+        draw.text((padding, album_h + padding), lrc, font=lyric_font, fill=self.text_color, spacing=self.line_space)
         
         # Python中字符串类型分为byte string 和 unicode string两种，'——'为中文标点byte string，需转换为unicode string
-        y_song_name = w + padding + lyric_h + self.song_name_space
+        y_song_name = album_h + padding + lyric_h + self.song_name_space
         # song_name = unicode('—— 「', "utf-8") + name + unicode('」', "utf-8")
         song_name = u'—— 「' + name + u'」'
         sw, sh = draw.textsize(song_name, font=lyric_font)
@@ -330,8 +335,6 @@ class Img():
         margin = self.style2_margin
         padding = self.style2_padding
         w = self.share_img_width
-        h = w + margin + padding + lyric_h + self.song_name_space + \
-            self.font_size + self.banner_space + self.netease_banner_size + padding + margin
 
         album_img = None
         if img_url.startswith('http'):
@@ -339,7 +342,14 @@ class Img():
             album_img = Image.open(BytesIO(raw_img.content))
         else:
             album_img = Image.open(img_url)
-        resized_album = album_img.resize((w, w), resample=3)
+
+        iw, ih = album_img.size
+        album_h = ih *  w // iw
+
+        h = album_h + margin + padding + lyric_h + self.song_name_space + \
+            self.font_size + self.banner_space + self.netease_banner_size + padding + margin
+
+        resized_album = album_img.resize((w, album_h), resample=3)
         icon = Image.open(self.netease_icon).resize((self.icon_width, self.icon_width), resample=3)
         quote = Image.open(self.quote_icon).resize((self.style2_quote_width, self.style2_quote_width), resample=3)
 
@@ -355,15 +365,15 @@ class Img():
 
         # 画边框
         rect_h = padding + lyric_h + self.song_name_space + self.font_size + self.banner_space
-        draw_rectangle(draw, (margin, w + margin, w - margin, w + margin + rect_h ), 2)
-        out_img.paste(quote, (margin - self.style2_quote_width // 2, w + margin + self.style2_quote_width // 2))
+        draw_rectangle(draw, (margin, album_h + margin, w - margin, album_h + margin + rect_h ), 2)
+        out_img.paste(quote, (margin - self.style2_quote_width // 2, album_h + margin + self.style2_quote_width // 2))
         quote = quote.rotate(180)
-        out_img.paste(quote, (w - margin - self.style2_quote_width // 2, w + margin + rect_h - self.style2_quote_width - self.style2_quote_width // 2))
+        out_img.paste(quote, (w - margin - self.style2_quote_width // 2, album_h + margin + rect_h - self.style2_quote_width - self.style2_quote_width // 2))
         
         # 添加文字
-        draw.text((margin + padding, w + margin + padding), lrc, font=lyric_font, fill=self.text_color, spacing=self.line_space)
+        draw.text((margin + padding, album_h + margin + padding), lrc, font=lyric_font, fill=self.text_color, spacing=self.line_space)
         
-        y_song_name = w + margin + padding + lyric_h + self.song_name_space
+        y_song_name = album_h + margin + padding + lyric_h + self.song_name_space
         # song_name = unicode('—— 「', "utf-8") + name + unicode('」', "utf-8")
         song_name = u'—— 「' + name + u'」'
         sw, sh = draw.textsize(song_name, font=lyric_font)
@@ -418,6 +428,7 @@ def main():
         playlist.get_lrc(random_line)
         playlist.create_img(pic_style)
     elif text is not None:
+        text = '\n'.join([line.strip() for line in text.replace('\\n','\n').split('\n')])
         text = unicode_str(text)
         
         if img_file is None:
