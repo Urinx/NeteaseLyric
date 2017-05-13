@@ -50,3 +50,12 @@ python netease_lyric.py -i 'path/to/img' -w '一回头 青春都喂了狗' -n 'U
 <div align=center>
 <img src='res/lyric_4.png' width='320' height='464'>
 </div>
+
+## 茫然退立，若有所思
+
+> 自幼身处江城，长年跨江往返两地，奔波汉口武昌。不时于车上驻窗而望，看物是人非，观人群熙攘。常叹人生在世，苦乐自知，时而茫然退立，若有所思。遂以图配字，刻记于此。望君翻阅之后，也能分享故事。
+
+<div align=center>
+<img src='res/lyric_6.png' width='320' height='562'>
+</div>
+
