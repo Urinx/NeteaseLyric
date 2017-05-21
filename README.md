@@ -59,3 +59,8 @@ python netease_lyric.py -i 'path/to/img' -w '一回头 青春都喂了狗' -n 'U
 <img src='res/lyric_6.png' width='320' height='562'>
 </div>
 
+> 是我太傻。—— 2017.5.21
+
+<div align=center>
+<img src='res/lyric_7.png' width='320' height='562'>
+</div>
