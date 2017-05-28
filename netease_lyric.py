@@ -187,6 +187,12 @@ class Song(object):
                 i = random.randint(0, n - random_line)
                 self.song_lrc = '\n'.join(lrc[i:i+random_line])
 
+    def show_lrc(self):
+        lrcs = self.song_lrc.split('\n')
+        n = len(lrcs)
+        for i in range(n):
+            print(('%'+str(len(str(n)))+'d %s') % (i+1, lrcs[i]))
+
     def create_img(self, pic_style):
         if pic_style == 1:
             Img().save(self.song_name, self.song_lrc, self.song_img)
@@ -397,18 +403,22 @@ def unicode_str(s):
         return s
 
 def main():
-    parser = optparse.OptionParser('usage: [--sid <song id> | --pid <playlist id>] -t <pic style> -r <random line>\n\t-i <your image> -w <some text> -n <name>')
+    parser = optparse.OptionParser('usage: [--sid <song id> | --pid <playlist id>] -t <pic style> -r <random_line>\n\t-i <your image> -w <some text> -n <name> -l -p <line_range>')
     parser.add_option('--sid', dest='sid', type='string', help='song id')
     parser.add_option('--pid', dest='pid', type='string', help='playlist id')
     parser.add_option('-t', dest='pic_style', type='int', help='1: has album image, 2: lyric only, 3: combine 1 & 2')
     parser.add_option('-r', dest='random_line', type='int', help='number of random lyric lines')
+    parser.add_option('-p', dest='line_range', type='string', help='range of lyric lines')
     parser.add_option('-i', dest='img_file', type='string', help='your own image')
     parser.add_option('-w', dest='text', type='string', help='some text')
     parser.add_option('-n', dest='name', type='string', help='name')
+    parser.add_option('-l', dest="show_lyrics", action="store_true", default=False, 
+                        help="only show the lyrics with line number to stdout")
     (options, args) = parser.parse_args()
     sid = options.sid
     pid = options.pid
     pic_style = options.pic_style
+    line_range = options.line_range
     random_line = options.random_line
     img_file = options.img_file
     text = options.text
@@ -422,7 +432,23 @@ def main():
     if sid is not None:
         song = Song(sid)
         song.get_lrc(random_line)
-        song.create_img(pic_style)
+
+        if options.show_lyrics:
+            song.show_lrc()
+        else:
+            if line_range is not None:
+                lrcs = song.song_lrc.split('\n')
+                tmp_lrcs = []
+                for i in line_range.split(','):
+                    if '-' in i:
+                        a, b = i.split('-')
+                        tmp_lrcs += lrcs[int(a)-1:int(b)]
+                    else:
+                        tmp_lrcs.append(lrcs[int(i)-1])
+                song.song_lrc = '\n'.join(tmp_lrcs)
+
+            song.create_img(pic_style)
+
     elif pid is not None:
         playlist = Playlist(pid)
         playlist.get_lrc(random_line)
