@@ -37,7 +37,7 @@ python netease_lyric.py --sid 35476049 -t 1 -r 2
 
 例2. 根据歌单`id`生成歌单下所有歌曲的歌词图片，图片样式为`3`：
 ```
-python netease_lyric.py --gid 138688333 -t 3
+python netease_lyric.py --pid 138688333 -t 3
 ```
 
 例3. 根据歌曲`id`生成该歌的歌词，选取`1,3,6-9`行歌词：
