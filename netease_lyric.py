@@ -238,7 +238,7 @@ class Img():
     def save(self, name, lrc, img_url):
         lyric_font = ImageFont.truetype(self.font_family, self.font_size)
         banner_font = ImageFont.truetype(self.font_family, self.netease_banner_size)
-        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(0, 0))).textsize(lrc, font=lyric_font, spacing=self.line_space)
+        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(1, 1))).textsize(lrc, font=lyric_font, spacing=self.line_space)
 
         padding = self.padding
         w = self.share_img_width
@@ -288,7 +288,7 @@ class Img():
     def save2(self, name, lrc, img_url):
         lyric_font = ImageFont.truetype(self.font_family, self.font_size)
         banner_font = ImageFont.truetype(self.font_family, self.netease_banner_size)
-        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(0, 0))).textsize(lrc, font=lyric_font, spacing=self.line_space)
+        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(1, 1))).textsize(lrc, font=lyric_font, spacing=self.line_space)
 
         margin = self.style2_margin
         padding = self.style2_padding
@@ -336,7 +336,7 @@ class Img():
     def save3(self, name, lrc, img_url):
         lyric_font = ImageFont.truetype(self.font_family, self.font_size)
         banner_font = ImageFont.truetype(self.font_family, self.netease_banner_size)
-        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(0, 0))).textsize(lrc, font=lyric_font, spacing=self.line_space)
+        lyric_w, lyric_h = ImageDraw.Draw(Image.new(mode='RGB', size=(1, 1))).textsize(lrc, font=lyric_font, spacing=self.line_space)
 
         margin = self.style2_margin
         padding = self.style2_padding
